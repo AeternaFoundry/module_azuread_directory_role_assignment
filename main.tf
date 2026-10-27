@@ -5,5 +5,14 @@ resource "azuread_directory_role_assignment" "directory_role_assignments" {
   role_id             = each.value.role_id
   app_scope_id        = each.value.app_scope_id
   directory_scope_id  = each.value.directory_scope_id
+
+  dynamic "timeouts" {
+    for_each = each.value.timeouts != null ? [each.value.timeouts] : []
+    content {
+      create = timeouts.value.create
+      delete = timeouts.value.delete
+      read   = timeouts.value.read
+    }
+  }
 }
 

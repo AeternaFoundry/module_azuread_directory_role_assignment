@@ -7,6 +7,10 @@ Required:
 Optional:
     - app_scope_id
     - directory_scope_id
+    - timeouts (block):
+        - create (optional)
+        - delete (optional)
+        - read (optional)
 EOT
 
   type = map(object({
@@ -14,6 +18,11 @@ EOT
     role_id             = string
     app_scope_id        = optional(string)
     directory_scope_id  = optional(string)
+    timeouts = optional(object({
+      create = optional(string)
+      delete = optional(string)
+      read   = optional(string)
+    }))
   }))
   validation {
     condition = alltrue([
